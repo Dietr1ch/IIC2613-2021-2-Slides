@@ -1,0 +1,15 @@
+#+title: IIC2613 2021-2
+
+* Slides
+** Setup
+   - Clone clone the reveal.js submodule.
+     #+begin_src bash
+     git submodule update --recursive
+     #+end_src
+   - Build the slides with Emacs's ~org-reveal~ mode. The [[spacemacs.org/][Spacemacs]]'s
+     configuration has a [[https://www.spacemacs.org/layers/+emacs/org/README.html][layer]] for it.
+
+* Links
+  - [[https://cursos.canvas.uc.cl/courses/32547][Canvas / IIC2613 2021-2]]
+  - [[https://drive.google.com/drive/u/2/folders/0AGuS7DZzNLFlUk9PVA][Google Drive / IIC2613 - 2021-2]]
+  - [[https://t.me/joinchat/GjG-PRPjOUuL35-amWV0GQ][Telegram / Inteligencia Artificial 2021-2]]

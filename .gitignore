@@ -1,0 +1,61 @@
+# -*- mode: gitignore; -*-
+
+# Projects
+# ========
+Slides/reveal.js/
+Slides/Images/
+Slides/auto
+Slides/*.html
+Slides/*.aux
+Slides/*.fls
+Slides/*.log
+Slides/*.tex
+Slides/*.fdb_latexmk
+
+# Linux
+# =====
+*~
+
+# Latex
+# =====
+*.aux
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+
+# Emacs
+# =====
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+auto/
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# reftex files
+*.rel
+
+# AUCTeX auto folder
+/auto/
+
+# Flycheck
+flycheck_*.el
+
+# projectiles files
+.projectile
+
+# directory configuration
+.dir-locals.el
+

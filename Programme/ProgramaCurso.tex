@@ -1,0 +1,194 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{enumerate}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}	
+\usepackage[letterpaper,margin=0.7in,includefoot]{geometry}
+
+\graphicspath{{./Figures}}
+
+
+\begin{document}
+
+\hbox
+{
+  \centerline
+  {
+    \vbox
+    {
+      \hbox{\sc\Large Pontificia Universidad Cat\'olica de Chile}\vspace{1ex}
+      \hbox{\sc\Large Escuela de Ingenier\'ia}\vspace{1ex}
+      \hbox{\sc\Large Departamento de Ciencia de la Computaci\'on}
+    }
+    \raisebox{-4pt}{\includegraphics[width=0.14\textwidth]{logo}}
+  }
+}
+\centerline
+{
+    \rule{480pt}{1pt}    
+}
+
+\begin{center}
+\vspace{2ex}\Large\bf IIC2613 - INTELIGENCIA ARTIFICIAL \\
+\vspace{1ex}-- Programa de curso --
+\end{center}
+
+\vspace{4ex}
+% Info administrativa
+\begin{center}
+\begin{tabular}{l@{\quad:\quad}l}
+  {\bf Profesores} & 
+Dietrich Daroch (\verb+ddaroch@ing.puc.cl+) y Álvaro Soto
+(\verb+asoto@ing.puc.cl+)\\  
+  {\bf Requisitos} & IIC2233\\  
+  {\bf Sitio Web} & SIDING\\  
+  {\bf Clases} & Lunes y Miércoles, módulo 2 \\
+  {\bf Ayudantías} & Viernes, módulo 2 \\
+  {\bf Horario de atención} & enviar email al profesor para concertar una cita\\  
+\end{tabular}
+\end{center}
+\vspace{2ex}
+
+% Contenido
+\section{Presentación del curso}
+El objetivo principal del curso es que el alumno comprenda los conceptos
+fundamentales relacionados con el área de Inteligencia Artificial y las
+metodologías que se utilizan en ésta. En particular, el alumno aprenderá a
+aplicar técnicas clásicas para la resolución de problemas usando lógica
+deductiva, algoritmos de búsqueda y técnicas de planificación. Además aprenderá
+los principios básicos del área de aprendizaje de máquina junto con sus
+principios inductivos de inferencia, revisando algunas de las técnicas más
+utilizadas de esta creciente área.
+
+\section{Objetivos de aprendizaje}
+Al finalizar el curso los alumnos serán capaces de:
+\begin{itemize}
+  \item Entender la evolución histórica de la inteligencia artificial, en
+    particular sus 2 ramas principales de inferencia inductiva e inferencia
+    deductiva.
+  \item Entender y aplicar técnicas deductivas de inteligencia artificial.
+  \item Enterder y aplicar técnicas inductivas de inteligencia artificial.
+  \item Analizar complejidad computacional y requerimientos de memoria asociados
+    a la aplicación de técnicas de inteligencia artificial.
+  \item Analizar problemas que requieran el uso de técnicas de inteligencia
+    artificial y crear soluciones acordes basadas en el paradigma de un agente
+    inteligente.
+\end{itemize}
+
+\section{Contenido}
+A continuación se presenta un desglose detallado de los contenidos del curso:
+
+\begin{enumerate}
+  \item \textbf{Introducción}    
+  \item \textbf{Resolución de problemas mediante búsqueda}
+    \begin{itemize}
+    \item Formalización de problemas de búsqueda.
+    \item Búsqueda no informada (DFS, BFS, Dijkstra's Algorithm).
+    \item Búsqueda informada (A*, IDA*).
+    \item Búsqueda en juegos (Minimax, Monte Carlo tree search).
+    \end{itemize}
+  \item \textbf{Programación en Lógica:}
+    \begin{itemize}
+      \item Answer Set Programming.
+      \item Aplicaciones en Planificación y Diagnóstico.            
+    \end{itemize}
+  \item \textbf{Introducción al aprendizaje de máquina}
+    \begin{itemize}    
+      \item Conceptos básicos.
+      \item Tipos de aprendizaje.      
+      %\item Optimización continua.
+    \end{itemize}
+  \item \textbf{Aprendizaje supervisado y reforzado}
+    \begin{itemize}                  
+      \item Máquinas de vectores de soporte (SVM).
+      \item Árboles de decisión y Random Forest.
+      \item Naive Bayes.
+      \item Redes neuronales.
+      \item MDP y aprendizaje reforzado.
+      \item Intro a redes neuronales profundas (Deep Learning).
+    \end{itemize}              
+\end{enumerate}
+
+\section{Metodología}
+El curso se desarrollará en clases expositivas de 80 minutos de duración. El
+alumno deberá rendir controles escritos y elaborar tareas en forma individual
+para complementar su aprendizaje. Los apuntes del curso, enunciados de tareas y
+pautas de corrección de controles estarán disponibles en forma electrónica en el
+sitio web del curso.
+
+\section{Evaluaciones}
+Las evaluaciones se dividen en dos tipos, cada una con su correspondiente nota
+final promedio:
+
+\begin{itemize}
+ \item Actividades en clases (30\%): corresponde a controles escritos cortos
+   sobre los contenidos de clases previas. Se realizará a lo más un control por
+   clase. Se espera aplicar al menos 10 controles durante el semestre, los
+   cuales serán en fechas aleatorias. Los alumnos podrán dejar de rendir
+   controles sin necesidad de justificación, por lo cual, en el cálculo de la
+   nota final de controles ($C$) se eliminarán las 3 notas más bajas.
+
+\item Tareas de programación (70 \%): Se realizarán 4 tareas de igual valor y de
+  carácter sumativo, sobre tópicos visto en cátedra, desde la óptica de la
+  programación.
+
+La nota final se calcula de la siguiente manera: $\textbf{NF} = 0.3 * C + 0.7 *
+\frac{T_1 + T_2 + T_3 + T_4}{4}$
+\end{itemize}
+
+
+
+\section{Normativas adicionales}
+\begin{itemize}
+ \item El descuento por entrega de tareas atrasadas es de 0.5 punto por día de
+   atraso. Con un máximo de 1 semana de atraso.
+ \item Una vez publicada la nota respectiva, cada evaluación tendrá un período
+   m\'aximo de 1 semana para la entrega de solicitudes de recorrección. \'Estas
+   deben ser enviadas al ayudante jefe.
+\end{itemize}
+
+
+\section{Política de Integridad Académica}
+Los alumnos de la Escuela de Ingeniería deben mantener un comportamiento acorde
+al Código de Honor de la Universidad:
+
+\begin{flushleft}
+\textit{``Como miembro de la comunidad de la Pontificia Universidad Católica de
+  Chile me comprometo a respetar los principios y normativas que la rigen.
+  Asimismo, prometo actuar con rectitud y honestidad en las relaciones con los
+  demás integrantes de la comunidad y en la realización de todo trabajo,
+  particularmente en aquellas actividades vinculadas a la docencia, el
+  aprendizaje y la creación, difusión y transferencia del conocimiento. Además,
+  velaré por la integridad de las personas y cuidaré los bienes de la
+  Universidad.''}
+\end{flushleft}
+
+En particular, se espera que mantengan altos estándares de honestidad académica.
+Cualquier acto deshonesto o fraude académico está prohibido; los alumnos que
+incurran en este tipo de acciones se exponen a un procedimiento sumario.
+Ejemplos de actos deshonestos son la copia, el uso de material o equipos no
+permitidos en las evaluaciones, el plagio, o la falsificación de identidad,
+entre otros. Específicamente, para los cursos del Departamento de Ciencia de la
+Computación, rige obligatoriamente una política de integridad académica en
+relación a copia y plagio. Si un alumno copia un trabajo, se le calificará con
+nota 1.0 en dicha evaluación y dependiendo de la gravedad de sus acciones podrá
+tener un 1.0 en todo ese ítem de evaluaciones o un 1.1 en el curso. Además, los
+antecedentes serán enviados a la Dirección de Pregradp de la Escuela de
+Ingeniería para evaluar posteriores sanciones en conjunto con la Universidad,
+las que pueden incluir un procedimiento sumario. Por ``copia'' o ``plagio'' se
+entiende incluir en el trabajo presentado como propio, partes desarrolladas por
+otra persona. Está permitido usar material disponible públicamente, por ejemplo,
+libros o contenidos tomados de Internet, siempre y cuando se incluya la cita
+correspondiente.
+
+\section{Bibliografía}
+\begin{itemize}
+  \item S. Russell, P. Norvig, \textit{Artificial Intelligence, A Modern Approach}, Prentice Hall, 3rd edition, 2010.
+  \item I. Goodfellow, Y. Bengio, A. Courville. \textit{Deep Learning}, MIT Press, 2016.
+  \item L. Sterling, E. Shapiro. \textit{The Art of Prolog}, MIT Press, 1994.
+  \item C. Bishop, \textit{Pattern Recognition and Machine Learning}, Springer, 2006.
+  \item T. Mitchell, \textit{Machine Learning}, McGraw Hill, 1997.
+  \item R. Duda, P. Hart, D. Stork, \textit{Pattern Classification}, Wiley Interscience, 2nd edition, 2000.
+  \item T. Hastie, R. Tibshirani, J. Friedman, \textit{The elements of Statistical Learning}, Springer, 2nd edition, 2009.
+\end{itemize}
+
+\end{document}
