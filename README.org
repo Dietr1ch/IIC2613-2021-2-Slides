@@ -2,12 +2,19 @@
 
 * Slides
 ** Setup
-   - Clone clone the reveal.js submodule.
+   - Clone the submodules.
      #+begin_src bash
      git submodule update --recursive
      #+end_src
-   - Build the slides with Emacs's ~org-reveal~ mode. The [[spacemacs.org/][Spacemacs]]'s
-     configuration has a [[https://www.spacemacs.org/layers/+emacs/org/README.html][layer]] for it.
+     - This can be avoided if you recursively clone the repository right away,
+       #+begin_src bash
+       git clone --recurse-submodules https://github.com/Dietr1ch/IIC2613-2021-2-Slides.git
+       #+end_src
+** Viewing
+   We keep updated generated files. Just open the html files under [[./Slides/][Slides/]].
+** Building
+   Build the slides with Emacs's ~org-reveal~ mode. The [[spacemacs.org/][Spacemacs]]'s
+   configuration has a [[https://www.spacemacs.org/layers/+emacs/org/README.html][layer]] for it.
 
 * Links
   - [[https://cursos.canvas.uc.cl/courses/32547][Canvas / IIC2613 2021-2]]
