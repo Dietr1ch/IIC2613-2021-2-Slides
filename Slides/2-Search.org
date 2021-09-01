@@ -153,7 +153,7 @@
              for n in node.neighbors():  # Creates Nodes around node.state
                  if n.state in Closed:
                      continue
-                  Open.upsert(n)  # Insert|Update to keep Nodes a Spanning Tree
+                  Open.upsert(n)  # Insert|Update to keep Nodes a Spanning Tree (if needed)
 
          return None
     #+end_src
@@ -251,13 +251,71 @@
     #+end_src
 
 ** Dijkstra's Algorithm
+*** Graphs with costs
+    #+ATTR_REVEAL: :frag (appear)
+    - Many problems have actions that have different costs.
+      - Time or effort actions take varies naturally
+        - Some roads are longer, climbing stairs takes more time and energy.
+    - BFS won't be optimal in cost by being optimal in the number of actions.
+
+*** Solving problems with cost
+    #+ATTR_REVEAL: :frag (appear)
+    The natural starting point is BFS as it's optimal in the number of actions.
+    #+ATTR_REVEAL: :frag (appear)
+    - How do we translate BFS's hop-consiousness into cost-consiousness?
+      #+ATTR_REVEAL: :frag (appear)
+      - Instead of the closest node you can reach, take the cheapest one.
+      - Wait, is that enough? What's so smart about this? How is Dijkstra
+        famous for it?
+        #+ATTR_REVEAL: :frag (appear)
+        - Yes; nothing; Invented it while drinking coffee, and also invented
+          many more algorithms.
+
+*** Updating Open
+    Costs will force us to continuously rank and update  nodes in $Open$.
+    #+begin_src dot :file Graphs/search_update_open.png :results show :exports results
+      digraph update_open {
+        rankdir=LR;
+
+        s->a [label=1];
+        a->g [label=3];
+
+        s->b [label=2];
+        b->g [label=0];
+
+        s->g [label=5];
+      }
+    #+end_src
+    We will need something more efficient than a list or a stack.
+    - A Priority Queue (aka Heap) does exactly what we need. ([[https://docs.python.org/3/library/heapq.html#theory][Python's heapq]])
+
+*** Updating Open
+    What should we do here?
+    #+begin_src dot :file Graphs/search_update_open2.png :results show :exports results
+      digraph update_open2 {
+        rankdir=LR;
+
+        s->a [label=1];
+        a->g [label=3];
+
+        s->b [label=0];
+        b->c [label=7];
+        c->d [label=0];
+
+        s->g [label=5];
+      }
+    #+end_src
+    #+ATTR_REVEAL: :frag (appear)
+    - Expansions: $(0, s), (0, b), (1, a), (4, g)$.
+    - Insertions/Updates: $[(0, s)], [(1, a), (0, b), (5, g)], [(7, c)], [(5\rightarrow 4, g)]$.
+    - Final Closed: ${s, b, a}$. Final Open: $(7, c)$. Unknown States: $d$
+
 *** A simple implementation
     #+begin_src python
       def best_first_search(g: Graph, start: State, query: Query) -> Path:
-          """Dijkstra's algorithm. Similar to BFS, but prefering lower costs.
-          It's just the  Generic Search using a cost-aware PriorityQueue."""
+          """Dijkstra's algorithm. Similar to BFS, but prefering lower costs."""
           Closed = set()
-          Open = PriorityQueue()
+          Open = CustomPriorityQueue()  # A Heap with fast updates for existing items
           Open.push(Node(start))
 
           while not Open.empty():
@@ -270,7 +328,143 @@
                   if s in Closed:
                       continue
                   n = Node(s, action=a, parent=state)
-                  Open.upsert(n)  # Insert|Update to keep Nodes a Spanning Tree
+                  Open.update_if_better(n)  # Open may already have a Node for s
 
           return None
     #+end_src
+
+** Smarter decisions
+*** Lack of comprehension
+    #+ATTR_REVEAL: :frag (appear)
+    - Even while Dijkstra's Algorithm is aware of the costs, it still takes
+      decisions that humans looking at a (simple) graph wouldn't.
+      - We make good guesses on where to head to, even if we don't exactly know
+        the solution for the problem.
+    - What do we really think about when solving search problems?
+      - We sense that some States are better than others as they seem to be
+        closer to the goals.
+      - We estimate the remaining cost.
+
+*** What if we could estimate?
+    #+ATTR_REVEAL: :frag (appear)
+    - Say we had a function $estimate: State \rightarrow \mathbb{R}_0^+$
+    - We could tie-break based on the estimated cost.
+      - For equally expensive nodes from Open, we would prefer the one that
+        seems closer
+    - Can we do better?
+
+*** Rethinking costs
+    #+ATTR_REVEAL: :frag (appear)
+    With a known cost to a Node, and an estimated remaining cost to reach a goal,
+    we can guess what's the cost of a solution that goes the Node.
+    #+ATTR_REVEAL: :frag (appear)
+    - Instead of only ranking with $cost: Node \rightarrow \mathbb{R}_0^+$ we
+      can also consider the estimated remaining cost.
+      #+ATTR_REVEAL: :frag (appear)
+      - $solution\_cost: Node \rightarrow \mathbb{R}_0^+$
+      - $solution\_cost(n) = cost(n) + estimate(n.state)$
+      - Actually known as $f(n) = g(n) + h(n.state)$
+
+*** Heuristics
+    #+ATTR_REVEAL: :frag (appear)
+    - How do we estimate costs of a path we don't know yet?
+    - What if we estimate costs poorly?
+      - What's a poor estimation?
+        - $h(s) = 0$ is a function from $State \rightarrow \mathbb{R}_0^+$.
+          - With this we are back to using Dijkstra's algorithm?
+        - What if we under-estimate the cost?
+        - What if we over-estimate the cost?
+        - Can we improve our estimations as we go?
+
+*** A*
+    #+ATTR_REVEAL: :frag (appear)
+    $A^*$ is the search algorithm that ranks nodes with $f(n)=g(n)+h(n.state)$.
+    - Is it better? Is it the best?
+      - Well, it depends on how good the heuristic is.
+
+*** What's a good heuristic?
+    #+ATTR_REVEAL: :frag (appear)
+    - $h(s)=0$ is definitely not good.
+      #+ATTR_REVEAL: :frag (appear)
+      - Not the worst, at least you fallback to Dijkstra's Algorithm, which works and gets optimal solutions.
+      - Really? What's worse than $h(s)=0$?
+        #+ATTR_REVEAL: :frag (appear)
+        - A misguiding heuristic. What if $h(g)=\infty$ for every goal state?
+          #+ATTR_REVEAL: :frag (appear)
+          - [[https://youtu.be/vde6rOO5AbU?t=32][That's evil]]! With that we would miss the goal!
+          - True. With bad heuristics $A^*$ may not be complete nor correct.
+    #+ATTR_REVEAL: :frag (appear)
+    - If $h(s)$ was the actual cost to the solution it would be really good.
+      #+ATTR_REVEAL: :frag (appear)
+      - Indeed, but computing that is solving the search problem at hand.
+      - This perfect heuristic, called $h^*(s)$, is a good reference heuristic.
+
+*** So, what's a good heuristic?
+    #+ATTR_REVEAL: :frag (appear)
+    - A good heuristic must not drive us away from a goal.
+      #+ATTR_REVEAL: :frag (appear)
+      - $0 \leq h(s) \leq h^*(s)$
+        #+ATTR_REVEAL: :frag (appear)
+        - $f(n)$ would always be a lower bound for the cost.
+        - Otherwise we may defer expanding nodes in the optimal path for too
+          long and find a sub-optimal path first.
+        - Known as admissibility.
+      - Is this enough? No
+
+*** A stronger heuristic property
+    #+begin_src dot :file Graphs/search_inconsistent_h.png :results show :exports results
+      digraph inconsistent_h {
+        rankdir=LR;
+
+        s [label="S\nh=4"];
+        a [label="A\nh=3"];
+        b [label="B\nh=0"];
+        g [label="G\nh=0"];
+
+        s->a [label=1];
+        s->b [label=3];
+        a->b [label=1];
+        b->g [label=2];
+      }
+    #+end_src
+    #+ATTR_REVEAL: :frag (appear)
+    - This is admissible and almost $h^*(s)$, the only difference is on $B$.
+      #+ATTR_REVEAL: :frag (appear)
+      - $A^*$ gets misdirected. What's so wrong with $h(B)=0$?
+      - It tells us that $B$ is really good and $B$ gets in $Closed$ too early.
+
+*** Consistency
+    [[file:Graphs/search_inconsistent_h.png]]
+    #+ATTR_REVEAL: :frag (appear)
+    - The trick here is likely be on $h(B)=0$. $h=h^*$ on the other states.
+      #+ATTR_REVEAL: :frag (appear)
+      - BFS and Dijkstra expand nodes with non-decreasing steps / cost.
+      - But this glitch in $h(B)$ makes $f(S)=4$ drop down to $f(B)=3$
+    - Consistency:
+      #+ATTR_REVEAL: :frag (appear)
+      - $h(n) \leq c(n, a, n') + h(n')$
+      - $g(n) + h(n) \leq g(n) + c(n, a, n') + h(n')$
+      - $f(n) \leq f(n')$
+
+*** Optimality
+    #+ATTR_REVEAL: :frag (appear)
+    - Is $A^*$ finally optimal when using a consistent heuristic?
+      #+ATTR_REVEAL: :frag (appear)
+      - Yes, and we can get a slightly more general result for free.
+      - w-$A^*$ is w-optimal.
+        #+ATTR_REVEAL: :frag (appear)
+        - $f_w(n) = g(s) + w*h(n)$ produces solutions no more than $w$ times
+          more expensive than the optimal.
+        - This makes the fringe deform even further towards the goals.
+
+*** Engineering heuristics
+    #+ATTR_REVEAL: :frag (appear)
+    - We can disassemble a problem without affecting the heuristic properties.
+      #+ATTR_REVEAL: :frag (appear)
+      - Removing an action/edge keeps a heuristic admissible.
+      - Removing an action/edge keeps a heuristic consistent.
+    - Can we devise a problem with more actions and solve it perfectly?
+      #+ATTR_REVEAL: :frag (appear)
+      - This problem is called a relaxation.
+      - Solving it with a consistent heuristic, like $h^*$ would give us a
+        consistent (and admissible) heuristic for our actual problem.
