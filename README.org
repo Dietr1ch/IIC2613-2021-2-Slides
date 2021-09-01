@@ -8,7 +8,7 @@
      #+end_src
      - This can be avoided if you recursively clone the repository right away,
        #+begin_src bash
-       git clone --recurse-submodules https://github.com/Dietr1ch/IIC2613-2021-2-Slides.git
+       git clone --recurse-submodules https://github.com/UC-IIC2613/Slides-2021-1.git
        #+end_src
 ** Viewing
    We keep updated generated files. Just open the html files under [[./Slides/][Slides/]].
