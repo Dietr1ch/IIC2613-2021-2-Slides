@@ -11,7 +11,7 @@
        git clone --recurse-submodules https://github.com/UC-IIC2613/Slides-2021-1.git
        #+end_src
 ** Viewing
-   We keep updated generated files. Just open the html files under [[./Slides/][Slides/]].
+   We keep updated generated files. Just open the html files.
 ** Building
    Build the slides with Emacs's ~org-reveal~ mode. The [[spacemacs.org/][Spacemacs]]'s
    configuration has a [[https://www.spacemacs.org/layers/+emacs/org/README.html][layer]] for it.

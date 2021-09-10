@@ -2,15 +2,18 @@
 
 # Projects
 # ========
-Slides/reveal.js/
-Slides/Images/
-Slides/auto
-Slides/*.html
-Slides/*.aux
-Slides/*.fls
-Slides/*.log
-Slides/*.tex
-Slides/*.fdb_latexmk
+reveal.js/
+
+# Media
+# -----
+Graphs/
+!Graphs/*.png
+Images/
+!Images/*.jpg
+!Images/*.jpeg
+!Images/*.png
+
+auto/
 
 # Linux
 # =====
