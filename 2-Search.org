@@ -6,9 +6,6 @@
 #+REVEAL_ROOT: reveal.js/
 
 * Tasks                                                            :noexport:
-** TODO Prepare Slides
-** TODO Practice
-** TODO Teach
 * Config                                                           :noexport:
   #+STARTUP: overview
 
