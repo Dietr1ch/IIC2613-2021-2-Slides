@@ -185,6 +185,85 @@
 *** Modeling
     [[https://github.com/potassco-asp-course/course/releases/download/v1.3.1/modeling.pdf][Potsdam's ASP collection Modeling]] (56/112)
 
+*** The ASP Language - Simple Rules
+    [[https://github.com/potassco-asp-course/course/releases/download/v1.6.1/introduction.pdf][Potsdam's ASP collection Introduction]] (42/203) ([[https://www.youtube.com/watch?v=p9oiyabH6yo&list=PL7DBaibuDD9NWhREiceTokOiY-S3nertB&index=9][Class Video]]).
+
+    The language can express various kinds of rules,
+    #+begin_src pasp
+      % Facts.
+      p(0).    % "p(0)"
+      odd(2).  % "2 is odd"
+
+      % Rules.
+      p(X) :- q(X).      % "q(X) then/implies p(X)"
+      r(X) :- not s(X).  % "not s(X) then/implies r(X)"
+
+      even(N) :- N/2 + N/2 == N.
+      odd(N) :- not even(N).
+
+      % Restrictions (aka. Integrity Constraints).
+      :- p(X), q(X).  % "(p(X) and q(X)) does not hold"
+    #+end_src
+
+*** The ASP Language - More Rules
+    #+begin_src pasp
+      % Disjunction.
+      p(X); q(X).          % "p(X) or q(X)"
+      p(X); q(X) :- r(X).  %  "r(X) then/implies (p(X) or q(X))"
+
+      % Conditionals.
+      p(X) :- q(X) : r(X).  % "(q(X) if r(X)) then/implies p(X)"
+                            % eq to `p(X) :- q(X), r(X)`, but easier to evaluate
+
+      % Choice rules
+      { p(X) : q(X) } = 1 :- r(X).  % "when r(X), then choose exactly 1 p(X)"
+      2 { p(X) : q(X) } 5 :- r(X).  % "when r(X), then choose between 2 and 7
+                                    % p(X) among those Xs that satisfy q(X)"
+
+      % Aggregate rules.
+      buy(X) :- 2 #sum{ C : useful(X), cost(X, C) } 5.
+    #+end_src
+
+*** The ASP Language - Solver options
+    The language can also specify how the solver should evaluate the solutions.
+    #+begin_src pasp
+      % Objective specification
+      % =======================
+      % Interesting when solving more complicated problems
+
+      % Weak constraints.
+      :~ p(X), q(X). [X@42].  % "(p(X) and q(X)) should not hold, it would cost 42."
+
+      % Optimization function.
+      #minimize { C : useful(X), cost(X, C) }
+      #maximize { F : useful(X), flow(X, F) }
+    #+end_src
+
+*** The ASP Language - Variable pitfalls
+    There's restriction on the way we can use variables.
+    #+begin_src pasp
+      % Avoid mistakes.
+      p(X) :- q(Y).  % "q(Y) then/implies p(X)"
+                     % Does this make sense at all?
+
+      % Simplify evaluation.
+      p(X) :- not q(X).  % "not q(Y) then/implies p(X)"
+                         % How do we get candidate constants to evaluate the rule?
+    #+end_src
+
+*** The ASP Language - More modeling
+    - Constraint satisfaction
+      - Graph colouring
+        - Clique
+      - Traveling salesman
+      - Loops
+      - [[./Examples/sudoku.lp][Sudoku]]
+      - [[./Examples/einstein.lp][Einstein's Problem]]
+    - Planning
+      - STRIPS
+        - Coffee robot
+        - Block world
+
 *** Clingo architecture
     #+ATTR_REVEAL: :frag (appear)
     - ~clingo~ uses a two-phase pipeline.
