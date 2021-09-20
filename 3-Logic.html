@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Logic</title>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="reveal.js/dist/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./style.css"/>
+<link rel="stylesheet" href="reveal.js/plugin/highlight/zenburn.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1 class="title">Logic</h1><h2 class="date">AI - 2021 H2</h2><p class="date">Created: 2021-09-14 Tue 23:21</p>
+</section>
+
+<section>
+<section id="slide-org629ea30">
+<h2 id="org629ea30">Logic</h2>
+<div class="outline-text-2" id="text-org629ea30">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org216632e">
+<h3 id="org216632e">Solving problems with logic</h3>
+<div class="outline-text-3" id="text-org216632e">
+</div>
+</section>
+<section id="slide-orgfb6b78c">
+<h4 id="orgfb6b78c">Introduction</h4>
+<ul>
+<li class="fragment appear">We have been looking at ways to solve problems that we can encode as
+state graphs with actions describing how the world operates.
+<ul>
+<li class="fragment appear">Good. Algorithms can treat problems as a black box and solve many
+different problems.</li>
+<li class="fragment appear">Bad. Algorithms have little context.
+<ul>
+<li class="fragment appear">Heuristics help giving algorithms understanding, but in a limited way.</li>
+
+</ul></li>
+
+</ul></li>
+
+</ul>
+
+<aside class="notes">
+<p>
+Essentially we used a solver for optimal paths or decisions, and we handed
+it problems we wanted to solve optimally or approximately.
+</p>
+
+</aside>
+
+</section>
+<section id="slide-org2aec6f1">
+<h4 id="org2aec6f1">Answer set programming - A simple example</h4>
+<ul>
+<li class="fragment appear"><p>
+Program
+</p>
+<div class="org-src-container">
+
+<pre><code class="pasp" >% Cats are animals. X is an animal if X is a cat.
+animal(X) :- cat(X).  % ~X~ is a /Variable/
+
+% ~tom~ is a cat.
+cat(tom).  % ~tom~ is an /atom/ (constant).
+</code></pre>
+</div></li>
+<li class="fragment appear"><p>
+Answer
+</p>
+<div class="org-src-container">
+
+<pre class="fragment (appear)"><code class="text" >Answer: 1
+cat(tom) animal(tom)
+SATISFIABLE
+
+Models       : 1
+</code></pre>
+</div></li>
+
+</ul>
+
+</section>
+<section id="slide-org6bf5073">
+<h4 id="org6bf5073">Answer set programming - Another example</h4>
+<ul>
+<li class="fragment appear"><p>
+Program
+</p>
+<div class="org-src-container">
+
+<pre><code class="pasp" >% Cats and dogs are mammals
+mammal(X) :- cat(X).
+mammal(X) :- dog(X).
+
+% Mammals are animals
+animal(X) :- mammal(XY).
+% Mammals sleep
+sleeps(X) :- mammal(X).
+
+cat(tom).
+dog(spike).
+</code></pre>
+</div></li>
+<li class="fragment appear"><p>
+Answer
+</p>
+<div class="org-src-container">
+
+<pre class="fragment (appear)"><code class="text" >Answer: 1
+cat(tom)   mammal(tom)   animal(tom)   sleeps(tom)
+dog(spike) mammal(spike) animal(spike) sleeps(spike)
+SATISFIABLE
+
+Models       : 1
+</code></pre>
+</div></li>
+
+</ul>
+
+</section>
+<section id="slide-org3a09543">
+<h4 id="org3a09543">Answer set programming - What is it?</h4>
+<ul>
+<li class="fragment appear">"Programming" as in "Linear Programming".</li>
+<li class="fragment appear">A declarative problem-solving method based on logic.
+<ul>
+<li class="fragment appear">Has a very expressive language for modeling.</li>
+<li class="fragment appear">Has very efficient solvers. Handling tens of millions of variables.
+<ul>
+<li class="fragment appear">Enough for exploring \(2^{10\,000\,000}\) states.</li>
+
+</ul></li>
+
+</ul></li>
+
+</ul>
+
+<aside class="notes">
+<p>
+How large is \(2^{10\,000\,000}\)?
+</p>
+
+</aside>
+
+</section>
+<section id="slide-org5a56fc7">
+<h4 id="org5a56fc7">Modeling</h4>
+<ul>
+<li class="fragment appear"><p>
+Programming
+</p>
+
+<div id="org4abb6c3" class="figure">
+<p><img src="Graphs/programming_workflow.png" alt="programming_workflow.png" />
+</p>
+</div></li>
+
+<li class="fragment appear"><p>
+Modeling
+</p>
+
+<div id="orgd2d015f" class="figure">
+<p><img src="Graphs/modeling_workflow.png" alt="modeling_workflow.png" />
+</p>
+</div></li>
+
+</ul>
+
+<aside class="notes">
+<p>
+Classical programming has too many responsibilities.
+It fuses modeling with how to solve problems
+If we are also tasked with solving the problem on top of modeling it, it
+will be harder and likely our solution won't be ideal on approach and
+also implementation.
+</p>
+
+</aside>
+
+</section>
+<section id="slide-org509e1df">
+<h4 id="org509e1df">Modeling - Why?</h4>
+<ul>
+<li class="fragment appear">Solvers encapsulate a really complex part of problem-solving.</li>
+<li class="fragment appear">Many concerns are kept away from our models
+<ul>
+<li>Correctness
+<ul>
+<li>Writing and proving correct software is hard. Let's re-use the effort.</li>
+
+</ul></li>
+<li>Efficiency
+<ul>
+<li>Right approach, implementation and build need fine-tuning.</li>
+
+</ul></li>
+
+</ul></li>
+
+</ul>
+
+
+</section>
+<section id="slide-org2cbf965">
+<h4 id="org2cbf965">Logic programs</h4>
+<p>
+<a href="https://github.com/potassco-asp-course/course/releases/download/v1.6.1/introduction.pdf">Potsdam's ASP collection Introduction</a> (21/203)
+</p>
+
+</section>
+<section id="slide-org6cda19b">
+<h4 id="org6cda19b">Modeling</h4>
+<p>
+<a href="https://github.com/potassco-asp-course/course/releases/download/v1.3.1/modeling.pdf">Potsdam's ASP collection Modeling</a> (56/112)
+</p>
+
+</section>
+<section id="slide-org98e4002">
+<h4 id="org98e4002">Clingo architecture</h4>
+<ul>
+<li class="fragment appear"><code>clingo</code> uses a two-phase pipeline.
+<ul>
+<li class="fragment appear">Grounding: removing variables. (<code>gringo</code>)
+<ul>
+<li>Parsing, de-sugaring, and "expanding" the program into a simple one.</li>
+
+</ul></li>
+<li class="fragment appear">Solving. (<code>clasp</code>)</li>
+
+</ul></li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="reveal.js/dist/reveal.js"></script>
+<script src="reveal.js/plugin/highlight/highlight.js"></script>
+<script src="reveal.js/plugin/markdown/markdown.js"></script>
+<script src="reveal.js/plugin/notes/notes.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'h.v',
+rollingLinks: true,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+width: 1366,
+height: 768,
+
+transition: 'slide',
+transitionSpeed: '2',
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealHighlight, RevealMarkdown, RevealNotes ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+#+title: Logic
+#+author:
+#+email: ddaroch@ing.puc.cl
+#+language: en
+#+date: AI - 2021 H2
+#+REVEAL_ROOT: reveal.js/
+
+* Tasks                                                            :noexport:
+** TODO Prepare Slides
+** TODO Practice
+   - https://teaching.potassco.org/
+** TODO Teach
+
+* Config                                                          :noexport:
+  #+STARTUP: overview
+
+** Numbering
+   #+OPTIONS: toc:nil
+   # Remove numbering from sections and subsections
+   #+OPTIONS: num:nil
+
+** Reveal
+   #+REVEAL_HLEVEL: 2
+   #+REVEAL_SPEED: 2
+   #+OPTIONS: reveal_slide_number:h.v
+
+   #+REVEAL_EXTRA_CSS: ./style.css
+
+   # Adding plugins without their dependencies might break your slides
+   #+REVEAL_EXTRA_JS: { src: 'plugin/math/math.js', async: true }, { src: 'plugin/zoom-js/zoom.js', async: true }
+   #+REVEAL_PLUGINS: (highlight markdown notes)
+
+*** Looks
+    #+REVEAL_TRANS: slide
+    # Theme (black moon night blood)
+    #+REVEAL_THEME: black
+    # Target 1366x768, 16:9 and not far from 1024x768 widely used on projectors
+    #+OPTIONS: reveal_width:1366 reveal_height:768
+    # #+REVEAL_EXTRA_CSS: custom.css
+*** Reveal
+    #+OPTIONS: reveal_center:t
+    #+OPTIONS: reveal_progress:t
+    #+OPTIONS: reveal_history:nil
+    #+OPTIONS: reveal_control:t
+    #+OPTIONS: reveal_rolling_links:t
+    #+OPTIONS: reveal_keyboard:t
+    #+OPTIONS: reveal_overview:t
+
+** Beamer
+   #+BEAMER_THEME: Rochester [height=20pt]
+   # #+OPTIONS: H:2
+   # #+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+
+*
+
+* Logic
+** Solving problems with logic
+*** Introduction
+    #+ATTR_REVEAL: :frag (appear)
+    - We have been looking at ways to solve problems that we can encode as
+      state graphs with actions describing how the world operates.
+      #+ATTR_REVEAL: :frag (appear)
+      - Good. Algorithms can treat problems as a black box and solve many
+        different problems.
+      - Bad. Algorithms have little context.
+        #+ATTR_REVEAL: :frag (appear)
+        - Heuristics help giving algorithms understanding, but in a limited way.
+
+    #+LaTeX: \note{
+    #+BEGIN_NOTES
+    Essentially we used a solver for optimal paths or decisions, and we handed
+    it problems we wanted to solve optimally or approximately.
+    #+END_NOTES
+    #+LaTeX: }
+
+*** Answer set programming - A simple example
+    #+ATTR_REVEAL: :frag (appear)
+    - Program
+      #+begin_src pasp
+      % Cats are animals. X is an animal if X is a cat.
+      animal(X) :- cat(X).  % ~X~ is a /Variable/
+
+      % ~tom~ is a cat.
+      cat(tom).  % ~tom~ is an /atom/ (constant).
+      #+end_src
+    - Answer
+      #+ATTR_REVEAL: :frag (appear)
+      #+begin_src text
+      Answer: 1
+      cat(tom) animal(tom)
+      SATISFIABLE
+
+      Models       : 1
+      #+end_src
+
+*** Answer set programming - Another example
+    #+ATTR_REVEAL: :frag (appear)
+    - Program
+      #+begin_src pasp
+        % Cats and dogs are mammals
+        mammal(X) :- cat(X).
+        mammal(X) :- dog(X).
+
+        % Mammals are animals
+        animal(X) :- mammal(XY).
+        % Mammals sleep
+        sleeps(X) :- mammal(X).
+
+        cat(tom).
+        dog(spike).
+      #+end_src
+    - Answer
+      #+ATTR_REVEAL: :frag (appear)
+      #+begin_src text
+        Answer: 1
+        cat(tom)   mammal(tom)   animal(tom)   sleeps(tom)
+        dog(spike) mammal(spike) animal(spike) sleeps(spike)
+        SATISFIABLE
+
+        Models       : 1
+      #+end_src
+
+*** Answer set programming - What is it?
+    #+ATTR_REVEAL: :frag (appear)
+    - "Programming" as in "Linear Programming".
+    - A declarative problem-solving method based on logic.
+      #+ATTR_REVEAL: :frag (appear)
+      - Has a very expressive language for modeling.
+      - Has very efficient solvers. Handling tens of millions of variables.
+        #+ATTR_REVEAL: :frag (appear)
+        - Enough for exploring $2^{10\,000\,000}$ states.
+
+    #+LaTeX: \note{
+    #+BEGIN_NOTES
+    How large is $2^{10\,000\,000}$?
+    #+END_NOTES
+    #+LaTeX: }
+
+*** Modeling
+    #+ATTR_REVEAL: :frag (appear)
+    - Programming
+      #+begin_src dot :file Graphs/programming_workflow.png :results show :exports results
+        digraph problem_solving {
+          rankdir=LR;
+
+          Problem -> Program [label="Programming"]
+          Program -> Output [label="Execution"]
+          Output -> Solution [label="Interpretation"]
+        }
+      #+end_src
+
+    - Modeling
+      #+begin_src dot :file Graphs/modeling_workflow.png :results show :exports results
+        digraph problem_solving {
+          rankdir=LR;
+
+          Problem -> Model [label="Modeling"]
+          Model -> Output [label="Solving"]
+          Output -> Solution [label="Interpretation"]
+        }
+      #+end_src
+
+    #+LaTeX: \note{
+    #+BEGIN_NOTES
+    Classical programming has too many responsibilities.
+    It fuses modeling with how to solve problems
+    If we are also tasked with solving the problem on top of modeling it, it
+    will be harder and likely our solution won't be ideal on approach and
+    also implementation.
+    #+END_NOTES
+    #+LaTeX: }
+
+*** Modeling - Why?
+    #+ATTR_REVEAL: :frag (appear)
+    - Solvers encapsulate a really complex part of problem-solving.
+    - Many concerns are kept away from our models
+      - Correctness
+        - Writing and proving correct software is hard. Let's re-use the effort.
+      - Efficiency
+        - Right approach, implementation and build need fine-tuning.
+
+*** Logic programs
+    [[https://github.com/potassco-asp-course/course/releases/download/v1.6.1/introduction.pdf][Potsdam's ASP collection Introduction]] (21/203)
+
+*** Modeling
+    [[https://github.com/potassco-asp-course/course/releases/download/v1.3.1/modeling.pdf][Potsdam's ASP collection Modeling]] (56/112)
+
+*** Clingo architecture
+    #+ATTR_REVEAL: :frag (appear)
+    - ~clingo~ uses a two-phase pipeline.
+      #+ATTR_REVEAL: :frag (appear)
+      - Grounding: removing variables. (~gringo~)
+        - Parsing, de-sugaring, and "expanding" the program into a simple one.
+      - Solving. (~clasp~)
+
+*** Wumpus world                                                   :noexport:
+
+    [[file:Graphs/wumpus_world.png]]
+
+    #+LaTeX: \note{
+    #+BEGIN_NOTES
+    The Wumpus world:
+
+    The agent can only sense the current state and move up/down/left/right.
+    There's 1 Wumpus, which will kill the agent on contact.
+    There's holes, which cause wind in the adjacent positions.
+    The Wumpus can be smelled from adjacent positions.
+
+    How to explore this world safely and gather the gold?
+    #+END_NOTES
+    #+LaTeX: }
+
+*** Wumpus world - Uncertainty                                     :noexport:
+    - The Wumpus world reveals how we think about uncertainty.
+      - Most of the time we only know cells may have a Wumpus or a Hole.
+      - As we learn we trim inconsistent ideas of the world's state.
+      - And we assume the world is mostly-stable.
+
+*** Negation types                                                 :noexport:
+    - Closed world assumption.
+      - What's not known to be true must be false.
+        - Either $p$ is true, or $\neg p$ is true.
+      - Simple, but insufficient for reasoning with incomplete information.
+    - Open world assumption.
+      - What's not known to be true may be still true or false.
+      - Negation as failure.
+        - A form of weak negation (not proved).
+        - Failure to prove $p$ means $\mathrm{not}~p$ is true.
+      - Non-monotonic reasoning
