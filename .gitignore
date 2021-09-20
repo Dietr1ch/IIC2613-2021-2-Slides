@@ -2,15 +2,11 @@
 .*
 !.gitignore
 
-# Projects
-# ========
-reveal.js/
-
 # Media
 # -----
-Graphs/
+Graphs/*
 !Graphs/*.png
-Images/
+Images/*
 !Images/*.jpg
 !Images/*.jpeg
 !Images/*.png
