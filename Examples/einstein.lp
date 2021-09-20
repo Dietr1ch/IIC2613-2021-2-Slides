@@ -8,7 +8,7 @@
 % incapable of solving it. Some commentators suggest that Einstein created such
 % puzzles not to test out intelligence but to get rid of all the students who
 % wanted him as an advisor. It is not likely that there is any truth to these
-% stories. Whereever this comes from, it is a nice riddle.
+% stories. Wherever this comes from, it is a nice riddle.
 
 % Let us assume that there are five houses of different colors next to each
 % other on the same road. In each house lives a man of a different nationality.
@@ -32,6 +32,25 @@
 % 15. The Blend smoker has a neighbor who drinks water.
 
 % The question to be answered is: Who keeps fish?
+
+
+
+% Solution
+% ========
+
+% Alternatives.
+%   * Short
+%     - house(H, Color, Nationality, Pet, Drink, Tobacco).
+%   * Long
+%     - house(H).
+%     - color(C).
+%     - nationality(N).
+%     - pet(P).
+%     - drink(D).
+%     - tobacco(T).
+%     - assign(H, Property).
+
+% What are the "search" spaces like?
 
 
 % Let us assume that there are five houses of different colors next to each
