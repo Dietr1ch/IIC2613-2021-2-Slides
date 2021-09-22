@@ -18,24 +18,24 @@
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide">
-<h1 class="title">Logic</h1><h2 class="date">AI - 2021 H2</h2><p class="date">Created: 2021-09-19 Sun 23:46</p>
+<h1 class="title">Logic</h1><h2 class="date">AI - 2021 H2</h2><p class="date">Created: 2021-09-21 Tue 22:40</p>
 </section>
 
 <section>
-<section id="slide-org7a441bf">
-<h2 id="org7a441bf">Logic</h2>
-<div class="outline-text-2" id="text-org7a441bf">
+<section id="slide-org0288507">
+<h2 id="org0288507">Logic</h2>
+<div class="outline-text-2" id="text-org0288507">
 </div>
 </section>
 </section>
 <section>
-<section id="slide-org917d843">
-<h3 id="org917d843">Solving problems with logic</h3>
-<div class="outline-text-3" id="text-org917d843">
+<section id="slide-org0795b2e">
+<h3 id="org0795b2e">Solving problems with logic</h3>
+<div class="outline-text-3" id="text-org0795b2e">
 </div>
 </section>
-<section id="slide-orgd2eca36">
-<h4 id="orgd2eca36">Introduction</h4>
+<section id="slide-orgbc8e62a">
+<h4 id="orgbc8e62a">Introduction</h4>
 <ul>
 <li class="fragment appear">We have been looking at ways to solve problems that we can encode as
 state graphs with actions describing how the world operates.
@@ -61,8 +61,8 @@ it problems we wanted to solve optimally or approximately.
 </aside>
 
 </section>
-<section id="slide-org67f857b">
-<h4 id="org67f857b">Answer set programming - A simple example</h4>
+<section id="slide-orgcc38ebf">
+<h4 id="orgcc38ebf">Answer set programming - A simple example</h4>
 <ul>
 <li class="fragment appear"><p>
 Program
@@ -92,8 +92,8 @@ Models       : 1
 </ul>
 
 </section>
-<section id="slide-orgad637c8">
-<h4 id="orgad637c8">Answer set programming - Another example</h4>
+<section id="slide-org5857cbe">
+<h4 id="org5857cbe">Answer set programming - Another example</h4>
 <ul>
 <li class="fragment appear"><p>
 Program
@@ -130,8 +130,8 @@ Models       : 1
 </ul>
 
 </section>
-<section id="slide-orgbbc4c3a">
-<h4 id="orgbbc4c3a">Answer set programming - What is it?</h4>
+<section id="slide-orgaea775a">
+<h4 id="orgaea775a">Answer set programming - What is it?</h4>
 <ul>
 <li class="fragment appear">"Programming" as in "Linear Programming".</li>
 <li class="fragment appear">A declarative problem-solving method based on logic.
@@ -155,8 +155,8 @@ How large is \(2^{10\,000\,000}\)?
 </aside>
 
 </section>
-<section id="slide-orgd4fa781">
-<h4 id="orgd4fa781">Modeling</h4>
+<section id="slide-orgd6c801d">
+<h4 id="orgd6c801d">Modeling</h4>
 <ul>
 <li class="fragment appear">Programming</li>
 <li class="fragment appear">Modeling</li>
@@ -174,8 +174,8 @@ also implementation.
 </aside>
 
 </section>
-<section id="slide-orgf64a761">
-<h4 id="orgf64a761">Modeling - Why?</h4>
+<section id="slide-org2d5487f">
+<h4 id="org2d5487f">Modeling - Why?</h4>
 <ul>
 <li class="fragment appear">Solvers encapsulate a really complex part of problem-solving.</li>
 <li class="fragment appear">Many concerns are kept away from our models
@@ -196,22 +196,22 @@ also implementation.
 </ul>
 
 </section>
-<section id="slide-orgb109c9a">
-<h4 id="orgb109c9a">Logic programs</h4>
+<section id="slide-orgdd934e9">
+<h4 id="orgdd934e9">Logic programs</h4>
 <p>
 <a href="https://github.com/potassco-asp-course/course/releases/download/v1.6.1/introduction.pdf">Potsdam's ASP collection Introduction</a> (21/203)
 </p>
 
 </section>
-<section id="slide-org63b3c4b">
-<h4 id="org63b3c4b">Modeling</h4>
+<section id="slide-orgd0c67cd">
+<h4 id="orgd0c67cd">Modeling</h4>
 <p>
 <a href="https://github.com/potassco-asp-course/course/releases/download/v1.3.1/modeling.pdf">Potsdam's ASP collection Modeling</a> (56/112)
 </p>
 
 </section>
-<section id="slide-org815d730">
-<h4 id="org815d730">The ASP Language - Simple Rules</h4>
+<section id="slide-org8cc6a93">
+<h4 id="org8cc6a93">The ASP Language - Simple Rules</h4>
 <p>
 <a href="https://github.com/potassco-asp-course/course/releases/download/v1.6.1/introduction.pdf">Potsdam's ASP collection Introduction</a> (42/203) (<a href="https://www.youtube.com/watch?v=p9oiyabH6yo&amp;list=PL7DBaibuDD9NWhREiceTokOiY-S3nertB&amp;index=9">Class Video</a>).
 </p>
@@ -238,8 +238,8 @@ odd(N) :- not even(N).
 </div>
 
 </section>
-<section id="slide-orgb2d5ccd">
-<h4 id="orgb2d5ccd">The ASP Language - More Rules</h4>
+<section id="slide-orgdb701a7">
+<h4 id="orgdb701a7">The ASP Language - More Rules</h4>
 <div class="org-src-container">
 
 <pre><code class="pasp" >% Disjunction.
@@ -261,8 +261,8 @@ buy(X) :- 2 #sum{ C : useful(X), cost(X, C) } 5.
 </div>
 
 </section>
-<section id="slide-orgfc5f8e3">
-<h4 id="orgfc5f8e3">The ASP Language - Solver options</h4>
+<section id="slide-org91714be">
+<h4 id="org91714be">The ASP Language - Solver options</h4>
 <p>
 The language can also specify how the solver should evaluate the solutions.
 </p>
@@ -282,8 +282,8 @@ The language can also specify how the solver should evaluate the solutions.
 </div>
 
 </section>
-<section id="slide-org50d29be">
-<h4 id="org50d29be">The ASP Language - Variable pitfalls</h4>
+<section id="slide-org098f6df">
+<h4 id="org098f6df">The ASP Language - Variable pitfalls</h4>
 <p>
 There's restriction on the way we can use variables.
 </p>
@@ -300,8 +300,8 @@ p(X) :- not q(X).  % "not q(Y) then/implies p(X)"
 </div>
 
 </section>
-<section id="slide-org4407fcf">
-<h4 id="org4407fcf">The ASP Language - More modeling</h4>
+<section id="slide-orgddd44e6">
+<h4 id="orgddd44e6">ASP - More modeling</h4>
 <ul>
 <li>Constraint satisfaction
 <ul>
@@ -310,6 +310,7 @@ p(X) :- not q(X).  % "not q(Y) then/implies p(X)"
 <li>Clique</li>
 
 </ul></li>
+<li>N-Queens</li>
 <li>Traveling salesman</li>
 <li>Loops</li>
 <li><a href="./Examples/sudoku.lp">Sudoku</a></li>
@@ -318,7 +319,7 @@ p(X) :- not q(X).  % "not q(Y) then/implies p(X)"
 </ul></li>
 <li>Planning
 <ul>
-<li>STRIPS
+<li><a href="./Examples/strips.lp">STRIPS</a>
 <ul>
 <li>Coffee robot</li>
 <li>Block world</li>
@@ -330,21 +331,112 @@ p(X) :- not q(X).  % "not q(Y) then/implies p(X)"
 </ul>
 
 </section>
-<section id="slide-orga64d439">
-<h4 id="orga64d439">Clingo architecture</h4>
+<section id="slide-org42adcea">
+<h4 id="org42adcea">ASP - N-Queens</h4>
+<p>
+(<a href="https://www.youtube.com/watch?v=EnLHTnAIiss&amp;list=PL7DBaibuDD9MUeCOgW6j1N3hxhMOEi002&amp;index=7">Potassco/Youtube</a>)
+</p>
+<div class="org-src-container">
+
+<pre><code class="pasp" >x(0..8).
+y(0..8).
+
+% queen(X, Y).
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orge9b0434">
+<h4 id="orge9b0434">ASP - Sudoku</h4>
+<div class="org-src-container">
+
+<pre><code class="pasp" >x(0..8).
+y(0..8).
+num(1..9).
+
+% sudoku(X, Y, N).
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org1b00b4a">
+<h4 id="org1b00b4a">ASP - Einstein's puzzle</h4>
+<div class="org-src-container">
+
+<pre><code class="pasp" >house(0..4).
+color(...).
+nationality(...).
+pet(...).
+drink(...).
+tobacco(...).
+
+% house(H, Color, Nationality, Pet, Drink, Tobacco).
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org1b2ea8e">
+<h4 id="org1b2ea8e">ASP - Einstein's puzzle, but faster</h4>
+<div class="org-src-container">
+
+<pre><code class="pasp" >house(0..4).
+color(...).
+nationality(...).
+pet(...).
+drink(...).
+tobacco(...).
+
+% assign(H, Property).
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org5cc0d93">
+<h4 id="org5cc0d93">ASP - Planning</h4>
+<p>
+Can we solve planning problems?
+There's a language for describing them, <a href="https://en.wikipedia.org/wiki/Stanford_Research_Institute_Problem_Solver">STRIPS</a>.
+</p>
+
 <ul>
-<li class="fragment appear"><code>clingo</code> uses a two-phase pipeline.
+<li>Fluents: Propositions changing over time.</li>
+<li>Starting state: Things that are true in the starting state(s).</li>
+<li>Actions
 <ul>
-<li class="fragment appear">Grounding: removing variables. (<code>gringo</code>)
+<li>Preconditions to be satisfied by the current state</li>
+<li>Effects
 <ul>
-<li>Parsing, de-sugaring, and "expanding" the program into a simple one.</li>
+<li>Positive effects: Things that start being true.</li>
+<li>Negative effects: Things that stop being true.</li>
 
 </ul></li>
-<li class="fragment appear">Solving. (<code>clasp</code>)</li>
 
 </ul></li>
+<li>Goal state: Things that should be true in a goal state.</li>
 
 </ul>
+
+</section>
+<section id="slide-org6d7a905">
+<h4 id="org6d7a905">ASP - Planning</h4>
+<div class="org-src-container">
+
+<pre><code class="pasp" >% Initial state and goal
+holds(Fluent, 0) :- start(Fluent).
+:- goal(Fluent), not holds(Fluent, k).  % k is our time horizon (limit).
+
+% Actions
+0 { exec(A, T) : action(A) } 1 :- time(T).            % We may pick an action.
+:- exec(A, T), pre(A, Fluent), not holds(Fluent, T).  % Which respect the prerequisites.
+
+% State evolution
+holds(Fluent, T+1) :- time(T),
+                      exec(A, T) : add(A, Fluent).
+holds(Fluent, T+1) :- time(T),
+                      holds(Fluent, T),
+                      not exec(A, T) : del(A, Fluent).
+</code></pre>
+</div>
 </section>
 </section>
 </div>

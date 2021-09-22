@@ -251,20 +251,95 @@
                          % How do we get candidate constants to evaluate the rule?
     #+end_src
 
-*** The ASP Language - More modeling
+*** ASP - More modeling
     - Constraint satisfaction
       - Graph colouring
         - Clique
+      - N-Queens
       - Traveling salesman
       - Loops
       - [[./Examples/sudoku.lp][Sudoku]]
       - [[./Examples/einstein.lp][Einstein's Problem]]
     - Planning
-      - STRIPS
+      - [[./Examples/strips.lp][STRIPS]]
         - Coffee robot
         - Block world
 
-*** Clingo architecture
+*** ASP - N-Queens
+    ([[https://www.youtube.com/watch?v=EnLHTnAIiss&list=PL7DBaibuDD9MUeCOgW6j1N3hxhMOEi002&index=7][Potassco/Youtube]])
+    #+begin_src pasp
+      x(0..8).
+      y(0..8).
+
+      % queen(X, Y).
+    #+end_src
+
+*** ASP - Sudoku
+    #+begin_src pasp
+      x(0..8).
+      y(0..8).
+      num(1..9).
+
+      % sudoku(X, Y, N).
+    #+end_src
+
+*** ASP - Einstein's puzzle
+    #+begin_src pasp
+      house(0..4).
+      color(...).
+      nationality(...).
+      pet(...).
+      drink(...).
+      tobacco(...).
+
+      % house(H, Color, Nationality, Pet, Drink, Tobacco).
+    #+end_src
+
+*** ASP - Einstein's puzzle, but faster
+    #+begin_src pasp
+      house(0..4).
+      color(...).
+      nationality(...).
+      pet(...).
+      drink(...).
+      tobacco(...).
+
+      % assign(H, Property).
+    #+end_src
+
+*** ASP - Planning
+    Can we solve planning problems?
+    There's a language for describing them, [[https://en.wikipedia.org/wiki/Stanford_Research_Institute_Problem_Solver][STRIPS]].
+    # Not to be confused with chicken strips? https://en.wikipedia.org/wiki/Strips
+    - Fluents: Propositions changing over time.
+    - Starting state: Things that are true in the starting state(s).
+    - Actions
+      - Preconditions to be satisfied by the current state
+      - Effects
+        - Positive effects: Things that start being true.
+        - Negative effects: Things that stop being true.
+    - Goal state: Things that should be true in a goal state.
+
+*** ASP - Planning
+    #+begin_src pasp
+      % Initial state and goal
+      holds(Fluent, 0) :- start(Fluent).
+      :- goal(Fluent), not holds(Fluent, k).  % k is our time horizon (limit).
+
+      % Actions
+      0 { exec(A, T) : action(A) } 1 :- time(T).            % We may pick an action.
+      :- exec(A, T), pre(A, Fluent), not holds(Fluent, T).  % Which respect the prerequisites.
+
+      % State evolution
+      holds(Fluent, T+1) :- time(T),
+                            exec(A, T) : add(A, Fluent).
+      holds(Fluent, T+1) :- time(T),
+                            holds(Fluent, T),
+                            not exec(A, T) : del(A, Fluent).
+    #+end_src
+
+
+*** Clingo architecture                                            :noexport:
     #+ATTR_REVEAL: :frag (appear)
     - ~clingo~ uses a two-phase pipeline.
       #+ATTR_REVEAL: :frag (appear)
